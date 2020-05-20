@@ -6,10 +6,15 @@ import kotlinx.serialization.builtins.serializer
 
 @Serializable
 enum class ItemType(val value: String){
+    @SerialName("job")
     JOB("job"),
+    @SerialName("story")
     STORY("story"),
+    @SerialName("comment")
     COMMENT("comment"),
+    @SerialName("poll")
     POLL("poll"),
+    @SerialName("pollopt")
     POLLOPT("pollopt")
 }
 
@@ -58,22 +63,28 @@ data class User(
 @Serializable
 data class Item(
     val id: Long,
+    @SerialName("deleted")
     val isDeleted: Boolean = false, //Needs mapping
+    @SerialName("type")
     val itemType: ItemType = ItemType.STORY, //Needs mapping
     val by: String? = null,
     val time: Long,
     val text: String? = null,
+    @SerialName("dead")
     val isDead: Boolean = false, //Needs mapping
+    @SerialName("parent")
     val parentItemId: Long? = null, //Needs mapping
     val poll: Long? = null,
     val kids: Array<Long>? = null,
+    @SerialName("url")
     val urlString: String? = null, //Needs mapping
     val score: Int? = null,
     val title: String? = null,
+    @SerialName("parts")
     val parts: Array<Int>? = null,
     val descendants: Int? = null,
     val lastRefreshTime: Int? = null
-) {
+)/* {
 
     @InternalSerializationApi
     @ImplicitReflectionSerializer
@@ -167,4 +178,4 @@ data class Item(
             )
         }
     }
-}
+}*/
