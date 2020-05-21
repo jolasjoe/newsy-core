@@ -20,7 +20,7 @@ repositories {
     google()
 }
 
-group 'com.example'
+group 'com.jolas.sdk.kn.newsycore'
 version '0.0.1'
 
 apply plugin: 'com.squareup.sqldelight'
@@ -73,6 +73,12 @@ kotlin {
         }
         iosTest {
         }
+    }
+}
+
+sqldelight {
+    NewsyDatabase {
+        packageName = "com.jolas.sdk.kn.newsycore"
     }
 }
 

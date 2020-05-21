@@ -1,5 +1,7 @@
 package com.jolas.sdk.kn.newsycore
 
+import com.squareup.sqldelight.db.SqlDriver
+import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.ios.Ios
 import io.ktor.client.features.json.JsonFeature
@@ -21,6 +23,8 @@ actual val httpClient = HttpClient(Ios){
         serializer = KotlinxSerializer(Json(JsonConfiguration.Default.copy(useArrayPolymorphism = true, ignoreUnknownKeys = true, isLenient = true)))
     }
 }
+
+actual val sqlDriver : SqlDriver = NativeSqliteDriver(NewsyDatabase.Schema, "newsy.db")
 
 private class MainDispatcher: CoroutineDispatcher() {
     override fun dispatch(context: CoroutineContext, block: Runnable) {

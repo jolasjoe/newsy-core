@@ -1,0 +1,26 @@
+createItemTable:
+CREATE TABLE IF NOT EXISTS itemTable (
+  id INTEGER NOT NULL,
+  isDeleted INTEGER NOT NULL,
+  itemType TEXT NOT NULL,
+  by TEXT,
+  time INTEGER NOT NULL,
+  text TEXT,
+  isDead INTEGER NOT NULL,
+  parentItemId INTEGER,
+  poll INTEGER,
+  kids TEXT,
+  urlString TEXT,
+  score INTEGER,
+  title TEXT,
+  parts TEXT,
+  descendants INTEGER,
+  lastRefreshTime INTEGER
+);
+
+insertItem:
+INSERT INTO itemTable(id, isDeleted, itemType, by, time, text, isDead, parentItemId, poll, kids, urlString, score, title, parts, descendants, lastRefreshTime)
+VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+queryItemWithId:
+SELECT * FROM itemTable WHERE id = ?;

@@ -46,10 +46,15 @@ class RemoteRepository: RemoteRepositoryProtocol {
     override fun fetchItem(itemId: Int, onSuccess: (Item) -> Unit, onFailure: () -> Unit) {
         val path = "item/$itemId.json"
         remoteRepoCoroutineScope.launch {
-            val resultValue = httpClient.get<Item> {
+            val resultItem = httpClient.get<Item> {
                 url(urlString = baseHNFBUrl + path)
             }
-            onSuccess(resultValue)
+            print("resultItem: $resultItem")
+            val localRepository = LocalRepository()
+            localRepository.insertItem(item = resultItem)
+            val insertedItem = localRepository.getItem(resultItem.id)
+            print("insertedItem: $insertedItem")
+            onSuccess(insertedItem)
         }
     }
 }
