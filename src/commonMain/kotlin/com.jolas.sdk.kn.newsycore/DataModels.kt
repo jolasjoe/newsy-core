@@ -4,15 +4,19 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-enum class ItemType(val value: String){
+enum class ItemType(val value: String) {
     @SerialName("job")
     JOB("job"),
+
     @SerialName("story")
     STORY("story"),
+
     @SerialName("comment")
     COMMENT("comment"),
+
     @SerialName("poll")
     POLL("poll"),
+
     @SerialName("pollopt")
     POLLOPT("pollopt")
 }

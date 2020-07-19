@@ -3,30 +3,27 @@ package com.jolas.sdk.kn.newsycore
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.url
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.UnstableDefault
 
 expect val httpClient: HttpClient
-expect val remoteRepoCoroutineScope: CoroutineScope
 
-enum class StoriesType{
+enum class StoriesType {
     TopStories, BestStories, NewStories, ShowStories, AskStories, JobStories
 }
 
-interface RemoteRepositoryProtocol{
-    val baseHNFBUrl : String
+interface RemoteRepositoryProtocol {
+    val baseHNFBUrl: String
         get() = "https://hacker-news.firebaseio.com/v0/"
 
-    fun fetchStories(type: StoriesType, onSuccess: (Array<Int>)->Unit, onFailure: ()->Unit)
-    fun fetchItem(itemId: Int, onSuccess: (Item) -> Unit, onFailure: () -> Unit)
+    fun getStories(type: StoriesType, onSuccess: (Array<Int>) -> Unit, onFailure: () -> Unit)
+    fun getItem(itemId: Long, onSuccess: (Item) -> Unit, onFailure: () -> Unit)
 }
 
-class RemoteRepository: RemoteRepositoryProtocol {
-
+class RemoteRepository : RemoteRepositoryProtocol {
     @UnstableDefault
-    override fun fetchStories(type: StoriesType, onSuccess: (Array<Int>) -> Unit, onFailure: ()->Unit) {
-        val path: String = when (type){
+    override fun getStories(type: StoriesType, onSuccess: (Array<Int>) -> Unit, onFailure: () -> Unit) {
+        val path: String = when (type) {
             StoriesType.TopStories -> "topstories.json"
             StoriesType.BestStories -> "beststories.json"
             StoriesType.NewStories -> "newstories.json"
@@ -34,27 +31,27 @@ class RemoteRepository: RemoteRepositoryProtocol {
             StoriesType.AskStories -> "askstories.json"
             StoriesType.JobStories -> "jobstories.json"
         }
-        remoteRepoCoroutineScope.launch {
-            val resultValue = httpClient.get<Array<Int>> {
-                url(urlString = baseHNFBUrl + path)
-            }
-            onSuccess(resultValue)
+        mainCoroutineScope.launch {
+            executeGetStories(path, onSuccess)
         }
     }
 
     @UnstableDefault
-    override fun fetchItem(itemId: Int, onSuccess: (Item) -> Unit, onFailure: () -> Unit) {
+    private suspend fun executeGetStories(path: String, onSuccess: (Array<Int>) -> Unit) {
+        val resultValue = httpClient.get<Array<Int>> {
+            url(urlString = baseHNFBUrl + path)
+        }
+        onSuccess(resultValue)
+    }
+
+    @UnstableDefault
+    override fun getItem(itemId: Long, onSuccess: (Item) -> Unit, onFailure: () -> Unit) {
         val path = "item/$itemId.json"
-        remoteRepoCoroutineScope.launch {
+        mainCoroutineScope.launch {
             val resultItem = httpClient.get<Item> {
                 url(urlString = baseHNFBUrl + path)
             }
-            print("resultItem: $resultItem")
-            val localRepository = LocalRepository()
-            localRepository.insertItem(item = resultItem)
-            val insertedItem = localRepository.getItem(resultItem.id)
-            print("insertedItem: $insertedItem")
-            onSuccess(insertedItem)
+            onSuccess(resultItem)
         }
     }
 }

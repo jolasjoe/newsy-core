@@ -1,6 +1,18 @@
+createKeyValueTable:
+CREATE TABLE IF NOT EXISTS KeyValueTable (
+key TEXT NOT NULL PRIMARY KEY,
+value TEXT NOT NULL
+);
+
+insertKeyValue:
+INSERT OR REPLACE INTO KeyValueTable(key, value) VALUES (?,?);
+
+queryValueForKey:
+SELECT value FROM KeyValueTable WHERE key = ?;
+
 createItemTable:
 CREATE TABLE IF NOT EXISTS itemTable (
-  id INTEGER NOT NULL,
+  id INTEGER NOT NULL PRIMARY KEY,
   isDeleted INTEGER NOT NULL,
   itemType TEXT NOT NULL,
   by TEXT,
@@ -19,7 +31,7 @@ CREATE TABLE IF NOT EXISTS itemTable (
 );
 
 insertItem:
-INSERT INTO itemTable(id, isDeleted, itemType, by, time, text, isDead, parentItemId, poll, kids, urlString, score, title, parts, descendants, lastRefreshTime)
+INSERT OR REPLACE INTO itemTable(id, isDeleted, itemType, by, time, text, isDead, parentItemId, poll, kids, urlString, score, title, parts, descendants, lastRefreshTime)
 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 queryItemWithId:
