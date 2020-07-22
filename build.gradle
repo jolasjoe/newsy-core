@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "com.squareup.sqldelight:gradle-plugin:1.4.0"
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:3.6.4'
     }
 }
 
@@ -26,7 +26,7 @@ repositories {
 }
 
 group 'com.jolas.sdk.kn.newsycore'
-version '0.0.1-alpha-3'
+version '0.0.1-alpha-4'
 
 android {
     compileSdkVersion 29
@@ -58,12 +58,16 @@ kotlin {
     android {
         publishLibraryVariants("release", "debug")
     }
+
     cocoapods {
         // Configure fields required by CocoaPods.
         summary = "newsy-core Kotlin/Native module"
         homepage = "https://github.com/jolasjoe/newsy-core"
-        frameworkName = "newsy-core"
+        frameworkName = "newsy_core"
     }
+
+    iosX64("iOS")
+
     // This is for iPhone simulator
     // Switch here to iosArm64 (or iosArm32) to build library for iPhone device
 //    iosX64("ios") {

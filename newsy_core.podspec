@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'newsy_core'
-    spec.version                  = '0.0.1-alpha-3'
+    spec.version                  = '0.0.1-alpha-4'
     spec.homepage                 = 'https://github.com/jolasjoe/newsy-core'
     spec.source                   = { :git => "https://github.com/jolasjoe/newsy-core.git", :tag => "#{spec.version}" }
     spec.authors                  = 'Jolas'
