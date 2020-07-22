@@ -13,7 +13,6 @@ buildscript {
 plugins {
     id("org.jetbrains.kotlin.multiplatform").version("1.3.72")
     id("org.jetbrains.kotlin.plugin.serialization").version("1.3.72")
-    id("org.jetbrains.kotlin.native.cocoapods").version("1.3.72")
 }
 
 apply plugin: 'com.android.library'
@@ -26,7 +25,7 @@ repositories {
 }
 
 group 'com.jolas.sdk.kn.newsycore'
-version '0.0.1-alpha-7'
+version '0.0.1-alpha-8'
 
 android {
     compileSdkVersion 29
@@ -59,22 +58,13 @@ kotlin {
         publishLibraryVariants("release", "debug")
     }
 
-    cocoapods {
-        // Configure fields required by CocoaPods.
-        summary = "newsy-core Kotlin/Native module"
-        homepage = "https://github.com/jolasjoe/newsy-core"
-        frameworkName = "newsy_core"
-    }
-
-    iosX64("ios")
-
     // This is for iPhone simulator
     // Switch here to iosArm64 (or iosArm32) to build library for iPhone device
-//    iosX64("ios") {
-//        binaries {
-//            framework()
-//        }
-//    }
+    iosX64("ios") {
+        binaries {
+            framework()
+        }
+    }
     sourceSets {
         commonMain {
             dependencies {

@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'newsy_core'
-    spec.version                  = '0.0.1-alpha-7'
+    spec.version                  = '0.0.1-alpha-8'
     spec.homepage                 = 'https://github.com/jolasjoe/newsy-core'
     spec.source                   = { :git => "https://github.com/jolasjoe/newsy-core.git", :tag => "#{spec.version}" }
     spec.authors                  = 'Jolas'
@@ -31,31 +31,35 @@ Pod::Spec.new do |spec|
     spec.summary                  = 'newsy-core Kotlin/Native module'
 
     spec.static_framework         = true
-    spec.vendored_frameworks      = "build/cocoapods/framework/newsy-core.framework"
+    spec.vendored_frameworks      = "build/bin/ios/releaseFramework/newsy_core.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
+    spec.prepare_command = <<-SCRIPT
+      set -ev
+      ./gradlew --no-daemon -Pframework=#{spec.name}.framework linkReleaseFrameworkIos --stacktrace --info
+    SCRIPT
             
 
-    spec.pod_target_xcconfig = {
-        'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'iosX64'
-    }
-
-    spec.script_phases = [
-        {
-            :name => 'Build newsy_core',
-            :execution_position => :before_compile,
-            :shell_path => '/bin/sh',
-            :script => <<-SCRIPT
-                set -ev
-                REPO_ROOT="$PODS_TARGET_SRCROOT"
-                "$REPO_ROOT/gradlew" -p "$REPO_ROOT" ::syncFramework \
-                    -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET \
-                    -Pkotlin.native.cocoapods.configuration=$CONFIGURATION \
-                    -Pkotlin.native.cocoapods.cflags="$OTHER_CFLAGS" \
-                    -Pkotlin.native.cocoapods.paths.headers="$HEADER_SEARCH_PATHS" \
-                    -Pkotlin.native.cocoapods.paths.frameworks="$FRAMEWORK_SEARCH_PATHS"
-            SCRIPT
-        }
-    ]
+#     spec.pod_target_xcconfig = {
+#         'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'iosX64'
+#     }
+#
+#     spec.script_phases = [
+#         {
+#             :name => 'Build newsy_core',
+#             :execution_position => :before_compile,
+#             :shell_path => '/bin/sh',
+#             :script => <<-SCRIPT
+#                 set -ev
+#                 REPO_ROOT="$PODS_TARGET_SRCROOT"
+#                 "$REPO_ROOT/gradlew" -p "$REPO_ROOT" ::syncFramework \
+#                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET \
+#                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION \
+#                     -Pkotlin.native.cocoapods.cflags="$OTHER_CFLAGS" \
+#                     -Pkotlin.native.cocoapods.paths.headers="$HEADER_SEARCH_PATHS" \
+#                     -Pkotlin.native.cocoapods.paths.frameworks="$FRAMEWORK_SEARCH_PATHS"
+#             SCRIPT
+#         }
+#     ]
 end
