@@ -26,7 +26,7 @@ repositories {
 }
 
 group 'com.jolas.sdk.kn.newsycore'
-version '0.0.1-alpha-5'
+version '0.0.1-alpha-6'
 
 android {
     compileSdkVersion 29
@@ -66,7 +66,7 @@ kotlin {
         frameworkName = "newsy_core"
     }
 
-    iosX64("iOS")
+    iosX64("ios")
 
     // This is for iPhone simulator
     // Switch here to iosArm64 (or iosArm32) to build library for iPhone device
