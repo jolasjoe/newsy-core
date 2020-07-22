@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'newsy_core'
-    spec.version                  = '0.0.1-alpha-6'
+    spec.version                  = '0.0.1-alpha-7'
     spec.homepage                 = 'https://github.com/jolasjoe/newsy-core'
     spec.source                   = { :git => "https://github.com/jolasjoe/newsy-core.git", :tag => "#{spec.version}" }
     spec.authors                  = 'Jolas'
@@ -38,7 +38,7 @@ Pod::Spec.new do |spec|
             
 
     spec.pod_target_xcconfig = {
-        'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'ios_x64'
+        'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'iosX64'
     }
 
     spec.script_phases = [
