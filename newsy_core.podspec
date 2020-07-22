@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'newsy-core'
-    spec.version                  = '0.0.1-alpha-2'
+    spec.name                     = 'newsy_core'
+    spec.version                  = '0.0.1-alpha-3'
     spec.homepage                 = 'https://github.com/jolasjoe/newsy-core'
     spec.source                   = { :git => "https://github.com/jolasjoe/newsy-core.git", :tag => "#{spec.version}" }
     spec.authors                  = 'Jolas'
@@ -31,7 +31,7 @@ Pod::Spec.new do |spec|
     spec.summary                  = 'newsy-core Kotlin/Native module'
 
     spec.static_framework         = true
-    spec.vendored_frameworks      = "build/cocoapods/framework/newsycore.framework"
+    spec.vendored_frameworks      = "build/cocoapods/framework/newsy-core.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
