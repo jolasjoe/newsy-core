@@ -26,7 +26,7 @@ repositories {
 }
 
 group 'com.jolas.sdk.kn.newsycore'
-version '0.0.1-alpha-1'
+version '0.0.1-alpha-2'
 
 android {
     compileSdkVersion 29
@@ -62,7 +62,7 @@ kotlin {
         // Configure fields required by CocoaPods.
         summary = "newsy-core Kotlin/Native module"
         homepage = "https://github.com/jolasjoe/newsy-core"
-        frameworkName = "newsycore"
+        frameworkName = "newsy-core"
     }
     // This is for iPhone simulator
     // Switch here to iosArm64 (or iosArm32) to build library for iPhone device
