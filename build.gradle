@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.tasks.*
 buildscript {
     repositories {
         mavenCentral()
@@ -25,7 +26,7 @@ repositories {
 }
 
 group 'com.jolas.sdk.kn.newsycore'
-version '0.0.1-alpha-8'
+version '0.0.1-alpha-10'
 
 android {
     compileSdkVersion 29
@@ -54,17 +55,34 @@ def ktor_version = '1.3.2'
 def sqldelight_version = '1.4.0'
 
 kotlin {
-    android {
-        publishLibraryVariants("release", "debug")
-    }
+//    android {
+//        publishLibraryVariants("release", "debug")
+//    }
 
     // This is for iPhone simulator
     // Switch here to iosArm64 (or iosArm32) to build library for iPhone device
-    iosX64("ios") {
+    ios {
         binaries {
             framework()
         }
     }
+
+    task debugFatFramework(type: FatFrameworkTask) {
+        destinationDir = file("$buildDir/fat-framework/debug")
+        from(
+                targets.iosArm64.binaries.getFramework("DEBUG"),
+                targets.iosX64.binaries.getFramework("DEBUG")
+        )
+    }
+
+    task releaseFatFramework(type: FatFrameworkTask) {
+        destinationDir = file("$buildDir/fat-framework/release")
+        from(
+                targets.iosArm64.binaries.getFramework("RELEASE"),
+                targets.iosX64.binaries.getFramework("RELEASE")
+        )
+    }
+
     sourceSets {
         commonMain {
             dependencies {

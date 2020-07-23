@@ -1,6 +1,9 @@
+#Workaround from https://github.com/JetBrains/kotlin-native/issues/3140 is applied.
+#Need to get straightforward solution that can be directly extracted from XCode
+
 Pod::Spec.new do |spec|
     spec.name                     = 'newsy_core'
-    spec.version                  = '0.0.1-alpha-8'
+    spec.version                  = '0.0.1-alpha-10'
     spec.homepage                 = 'https://github.com/jolasjoe/newsy-core'
     spec.source                   = { :git => "https://github.com/jolasjoe/newsy-core.git", :tag => "#{spec.version}" }
     spec.authors                  = 'Jolas'
@@ -29,15 +32,15 @@ Pod::Spec.new do |spec|
                                   LICENSE
                                   }
     spec.summary                  = 'newsy-core Kotlin/Native module'
-
+    spec.platform                 = :ios, "9.3"
     spec.static_framework         = true
-    spec.vendored_frameworks      = "build/bin/ios/releaseFramework/newsy_core.framework"
+    spec.vendored_frameworks      = "build/fat-framework/release/newsy_core.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
     spec.prepare_command = <<-SCRIPT
       set -ev
-      ./gradlew --no-daemon -Pframework=#{spec.name}.framework linkReleaseFrameworkIos --stacktrace --info
+      ./gradlew --no-daemon -Pframework=#{spec.name}.framework releaseFatFramework --stacktrace --info
     SCRIPT
             
 
