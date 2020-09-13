@@ -1,12 +1,26 @@
 package com.jolas.sdk.kn.newsycore
 
 import io.ktor.client.HttpClient
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
+import io.ktor.client.features.logging.*
 import io.ktor.client.request.get
 import io.ktor.client.request.url
 import kotlinx.coroutines.launch
-import kotlinx.serialization.UnstableDefault
+import kotlinx.serialization.json.Json
 
-expect val httpClient: HttpClient
+internal val remoteRepoJson =
+    Json { useArrayPolymorphism = true; ignoreUnknownKeys = true; isLenient = true }
+
+val httpClient = HttpClient {
+    install(JsonFeature){
+        serializer = KotlinxSerializer(remoteRepoJson)
+    }
+    install(Logging){
+        logger = Logger.DEFAULT
+        level = LogLevel.INFO
+    }
+}
 
 enum class StoriesType {
     TopStories, BestStories, NewStories, ShowStories, AskStories, JobStories
@@ -21,7 +35,6 @@ interface RemoteRepositoryProtocol {
 }
 
 class RemoteRepository : RemoteRepositoryProtocol {
-    @UnstableDefault
     override fun getStories(type: StoriesType, onSuccess: (Array<Int>) -> Unit, onFailure: () -> Unit) {
         val path: String = when (type) {
             StoriesType.TopStories -> "topstories.json"
@@ -36,7 +49,6 @@ class RemoteRepository : RemoteRepositoryProtocol {
         }
     }
 
-    @UnstableDefault
     private suspend fun executeGetStories(path: String, onSuccess: (Array<Int>) -> Unit) {
         val resultValue = httpClient.get<Array<Int>> {
             url(urlString = baseHNFBUrl + path)
@@ -44,7 +56,6 @@ class RemoteRepository : RemoteRepositoryProtocol {
         onSuccess(resultValue)
     }
 
-    @UnstableDefault
     override fun getItem(itemId: Long, onSuccess: (Item) -> Unit, onFailure: () -> Unit) {
         val path = "item/$itemId.json"
         mainCoroutineScope.launch {

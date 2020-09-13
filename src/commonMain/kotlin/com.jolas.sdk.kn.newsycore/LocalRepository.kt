@@ -1,9 +1,6 @@
 package com.jolas.sdk.kn.newsycore
 
-import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.launch
-
-expect val sqlDriver: SqlDriver
 
 interface LocalRepositoryProtocol {
     fun insertKeyValue(key: String, value: String)
@@ -12,8 +9,8 @@ interface LocalRepositoryProtocol {
     fun getItem(itemId: Long, onSuccess: (Item?) -> Unit)
 }
 
-class LocalRepository : LocalRepositoryProtocol {
-    private val database = NewsyDatabase.invoke(sqlDriver)
+class LocalRepository(platformDependencies: ZIMPlatformDependencies) : LocalRepositoryProtocol {
+    private val database = NewsyDatabase.invoke(platformDependencies.getSqlDriver())
     private val dataQueries = database.itemQueries
 
     init {
