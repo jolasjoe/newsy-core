@@ -46,6 +46,12 @@ kotlin {
         }
     }
 
+    mingwX64( "mingw" ) {
+        binaries {
+            sharedLib()
+        }
+    }
+
 //    tasks.create("debugFatFramework", FatFrameworkTask::class) {
 //        destinationDir = buildDir.resolve("fat-framework/debug")
 //        // Specify the frameworks to be merged.
@@ -88,6 +94,12 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-ios:$ktor_version")
+                implementation("com.squareup.sqldelight:native-driver:1.4.2")
+            }
+        }
+        val mingwMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-curl:$ktor_version")
                 implementation("com.squareup.sqldelight:native-driver:1.4.2")
             }
         }
