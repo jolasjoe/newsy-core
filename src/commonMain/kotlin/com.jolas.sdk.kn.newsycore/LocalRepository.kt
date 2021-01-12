@@ -9,7 +9,7 @@ interface LocalRepositoryProtocol {
     fun getItem(itemId: Long, onSuccess: (Item?) -> Unit)
 }
 
-class LocalRepository(platformDependencies: ZIMPlatformDependencies) : LocalRepositoryProtocol {
+class LocalRepository(platformDependencies: NewsyPlatformDependencies) : LocalRepositoryProtocol {
     private val database = NewsyDatabase.invoke(platformDependencies.getSqlDriver())
     private val dataQueries = database.itemQueries
 

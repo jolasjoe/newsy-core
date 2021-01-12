@@ -3,13 +3,13 @@ package com.jolas.sdk.kn.newsycore
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.CoroutineScope
 
-expect class ZIMPlatformDependencies(sqlDriver: SqlDriver) {
+expect class NewsyPlatformDependencies(sqlDriver: SqlDriver) {
     fun getSqlDriver(): SqlDriver
 }
 
 expect val mainCoroutineScope: CoroutineScope
 
-class IMRepository(platformDependencies: ZIMPlatformDependencies) {
+class NewsyRepository(platformDependencies: NewsyPlatformDependencies) {
     private val localRepository: LocalRepositoryProtocol = LocalRepository(platformDependencies)
     private val remoteRepository: RemoteRepositoryProtocol = RemoteRepository()
 

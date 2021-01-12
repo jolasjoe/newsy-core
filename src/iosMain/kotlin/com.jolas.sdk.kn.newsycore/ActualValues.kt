@@ -10,7 +10,7 @@ import platform.darwin.dispatch_async
 import platform.darwin.dispatch_get_main_queue
 import kotlin.coroutines.CoroutineContext
 
-actual class ZIMPlatformDependencies actual constructor(private val sqlDriver: SqlDriver){
+actual class NewsyPlatformDependencies actual constructor(private val sqlDriver: SqlDriver){
     constructor(): this(sqlDriver = NativeSqliteDriver(NewsyDatabase.Schema, "newsy.db"))
     actual fun getSqlDriver(): SqlDriver{
         return sqlDriver

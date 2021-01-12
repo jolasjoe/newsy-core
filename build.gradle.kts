@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.*
 plugins {
     id("com.android.library")
     id("com.squareup.sqldelight")
@@ -16,14 +15,14 @@ repositories {
 group = "com.jolas.sdk.kn.newsycore"
 version = "0.0.1-alpha-10"
 
-val ktor_version = "1.4.0"
-val sqldelight_version = "1.4.2"
+val ktorVersion = "1.5.0"
+val sqlDelightVersion = "1.4.4"
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
     defaultConfig {
         minSdkVersion(16)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         versionCode = 1
         versionName = "0.0.1-alpha-10"
     }
@@ -73,10 +72,10 @@ kotlin {
     sourceSets {
         val commonMain by getting  {
             dependencies {
-                implementation("io.ktor:ktor-client-core:$ktor_version")
-                implementation("io.ktor:ktor-client-serialization:$ktor_version")
-                implementation("com.squareup.sqldelight:runtime:$sqldelight_version")
-                implementation("io.ktor:ktor-client-logging:$ktor_version")
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
+                implementation("io.ktor:ktor-client-logging:$ktorVersion")
             }
         }
         val commonTest by getting {
@@ -87,20 +86,20 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:$ktor_version")
-                implementation("com.squareup.sqldelight:android-driver:1.4.2")
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
         val iosMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-ios:$ktor_version")
-                implementation("com.squareup.sqldelight:native-driver:1.4.2")
+                implementation("io.ktor:ktor-client-ios:$ktorVersion")
+                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
             }
         }
         val mingwMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-curl:$ktor_version")
-                implementation("com.squareup.sqldelight:native-driver:1.4.2")
+                implementation("io.ktor:ktor-client-curl:$ktorVersion")
+                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
             }
         }
     }
