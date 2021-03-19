@@ -1,9 +1,9 @@
 plugins {
     id("com.android.library")
     id("com.squareup.sqldelight")
-    kotlin("multiplatform") version "1.4.0"
+    kotlin("multiplatform") version "1.4.31"
     id("maven-publish")
-    id("org.jetbrains.kotlin.plugin.serialization")version("1.4.0")
+    id("org.jetbrains.kotlin.plugin.serialization")version("1.4.31")
 }
 
 repositories {
@@ -15,7 +15,7 @@ repositories {
 group = "com.jolas.sdk.kn.newsycore"
 version = "0.0.1-alpha-10"
 
-val ktorVersion = "1.5.0"
+val ktorVersion = "1.5.2"
 val sqlDelightVersion = "1.4.4"
 
 android {
@@ -48,6 +48,12 @@ kotlin {
     mingwX64( "mingw" ) {
         binaries {
             sharedLib()
+        }
+    }
+
+    macosX64("macos") {
+        binaries {
+            framework()
         }
     }
 
@@ -97,6 +103,12 @@ kotlin {
             }
         }
         val mingwMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-curl:$ktorVersion")
+                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+            }
+        }
+        val macosMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-curl:$ktorVersion")
                 implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
