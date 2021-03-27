@@ -1,9 +1,10 @@
 plugins {
     id("com.android.library")
     id("com.squareup.sqldelight")
-    kotlin("multiplatform") version "1.4.31"
+    kotlin("multiplatform")version("1.4.31")
     id("maven-publish")
     id("org.jetbrains.kotlin.plugin.serialization")version("1.4.31")
+    id("org.jetbrains.dokka")version("1.4.30")
 }
 
 repositories {
