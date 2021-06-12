@@ -1,4 +1,4 @@
-package com.jolas.sdk.kn.newsycore
+package io.jolas.newsycore
 
 import android.content.Context
 import com.squareup.sqldelight.android.AndroidSqliteDriver

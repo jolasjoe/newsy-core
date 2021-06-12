@@ -1,4 +1,4 @@
-package com.jolas.sdk.kn.newsycore
+package io.jolas.newsycore
 
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.CoroutineScope

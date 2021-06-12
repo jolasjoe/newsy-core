@@ -1,4 +1,4 @@
-package com.jolas.sdk.kn.newsycore
+package io.jolas.newsycore
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

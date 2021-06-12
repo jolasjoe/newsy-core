@@ -1,10 +1,10 @@
 plugins {
     id("com.android.library")
     id("com.squareup.sqldelight")
-    kotlin("multiplatform")version("1.4.31")
+    kotlin("multiplatform")version("1.4.32")
     id("maven-publish")
-    id("org.jetbrains.kotlin.plugin.serialization")version("1.4.31")
-    id("org.jetbrains.dokka")version("1.4.30")
+    id("org.jetbrains.kotlin.plugin.serialization")version("1.4.32")
+    id("org.jetbrains.dokka")version("1.4.32")
 }
 
 repositories {
@@ -13,8 +13,8 @@ repositories {
     google()
 }
 
-group = "com.jolas.sdk.kn.newsycore"
-version = "0.0.1-alpha-10"
+group = "io.github.jolasjoe"
+version = "1.0.0"
 
 val ktorVersion = "1.5.2"
 val sqlDelightVersion = "1.4.4"
@@ -32,6 +32,7 @@ android {
             isMinifyEnabled = false
         }
     }
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 }
 
 kotlin {
@@ -120,6 +121,6 @@ kotlin {
 
 sqldelight {
     database("NewsyDatabase") {
-        packageName = "com.jolas.sdk.kn.newsycore"
+        packageName = "io.jolas.newsycore"
     }
 }
