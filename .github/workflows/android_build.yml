@@ -1,4 +1,4 @@
-name: IOS Framework Ready
+name: Test and Link ReleaseFrameworkIos
 
 on: pull_request
 
@@ -13,5 +13,5 @@ jobs:
       - name: Run Tests
         run: ./gradlew check
 
-      - name: Build
+      - name: linkReleaseFrameworkIos
         run: ./gradlew build
