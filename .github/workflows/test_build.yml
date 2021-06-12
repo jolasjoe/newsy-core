@@ -10,8 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run Tests
+      - name: Gradle check
         run: ./gradlew check
 
-      - name: linkReleaseFrameworkIos
+      - name: Gradle build
         run: ./gradlew build
