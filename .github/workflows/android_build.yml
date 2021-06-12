@@ -1,4 +1,4 @@
-name: Library Full Build
+name: IOS Framework Ready
 
 on: pull_request
 
